@@ -3,7 +3,6 @@ const j2s = require("joi-to-swagger");
 const { schema: salesSchema } = require("./salesSchema");
 const { swagger: revenueSummarySchemaSwagger } = j2s(salesSchema);
 
-// Swagger Config
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",

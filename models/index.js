@@ -1,9 +1,9 @@
-const sequelize = require('../sequelize');
+const sequelize = require("../sequelize");
 
-const { User, initModel: initUser } = require('./User');
-const { Group, initModel: initGroup } = require('./Group');
-const { Sale, initModel: initSale } = require('./Sale');
-const { UserGroup, initModel: initUserGroup } = require('./UserGroup');
+const { User, initModel: initUser } = require("./User");
+const { Group, initModel: initGroup } = require("./Group");
+const { Sale, initModel: initSale } = require("./Sale");
+const { UserGroup, initModel: initUserGroup } = require("./UserGroup");
 
 initUser(sequelize);
 initGroup(sequelize);
@@ -11,30 +11,20 @@ initSale(sequelize);
 initUserGroup(sequelize);
 
 // User [One-to-Many] Sale
-User.hasMany(Sale)
-Sale.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(Sale);
+Sale.belongsTo(User, { foreignKey: "user_id" });
 
 // User [Many-to-Many] Group
-User.belongsToMany(Group, { through: UserGroup, foreignKey: 'user_id', otherKey: 'group_id'});
-// Group.belongsToMany(User, { through: UserGroup, unique: false, foreignKey: 'user_id', otherKey: 'group_id' });
-
-// Group.belongsToMany(User, { through: UserGroup, foreignKey: 'group_id', otherKey: 'user_id' });
-// UserGroup.belongsTo(User, { foreignKey: 'user_id' });
-
-// Group.belongsToMany(User, { through: UserGroup, foreignKey: 'group_id', otherKey: 'user_id' });
-
-// User.belongsToMany(Group, { through: UserGroup, foreignKey: 'user_id', otherKey: 'group_id' });
-
-
-// UserGroup.belongsTo(Group, { foreignKey: 'group_id' });
-// User.hasMany(Sale)
-// User.hasMany(UserGroup)
-// Group.hasMany(UserGroup)
+User.belongsToMany(Group, {
+  through: UserGroup,
+  foreignKey: "user_id",
+  otherKey: "group_id",
+});
 
 module.exports = {
-    sequelize,
-    User,
-    Group,
-    Sale,
-    UserGroup,
+  sequelize,
+  User,
+  Group,
+  Sale,
+  UserGroup,
 };
