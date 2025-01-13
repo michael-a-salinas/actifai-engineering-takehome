@@ -34,7 +34,11 @@ async function start() {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
   // Write your endpoints here
-  app.get("/api/v1/sales/time-series", reportsController.getSalesTimeSeries);
+  app.get("/api/v1/sales/", reportsController.getSalesTimeSeries);
+  app.get(
+    "/api/v1/sales/time-series",
+    reportsController.getSalesTimeSeriesAggregation
+  );
 
   app.listen(PORT, HOST);
   console.log(`Server is running on http://${HOST}:${PORT}`);

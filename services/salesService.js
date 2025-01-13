@@ -8,6 +8,32 @@ const {
 const { mapUserData, mapGroupData } = require("../utils/mappers");
 
 async function getTimeSeries(params = {}) {
+  const { startDate, endDate } = params;
+  const timeSeriesData = await Sale.findAll({
+    attributes: ["id", "amount", "date"],
+    include: [
+      {
+        model: User,
+        attributes: ["id", "name", "role"],
+        include: [
+          {
+            model: Group,
+            attributes: ["id", "name"],
+            through: { attributes: [] },
+          },
+        ],
+      },
+    ],
+    where: { date: { [Op.between]: [startDate, endDate] } },
+  });
+  return {
+    startDate,
+    endDate,
+    data: timeSeriesData,
+  };
+}
+
+async function getTimeSeriesAggregation(params = {}) {
   const {
     interval = "week",
     groupBy = "user",
@@ -74,4 +100,4 @@ async function getTimeSeries(params = {}) {
   };
 }
 
-module.exports = { getTimeSeries };
+module.exports = { getTimeSeries, getTimeSeriesAggregation };

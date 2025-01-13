@@ -3,6 +3,11 @@ const joi = require("joi");
 const salesSchema = joi.object({
   startDate: joi.date().required().description("Start date (YYYY-MM-DD)"),
   endDate: joi.date().required().description("End date (YYYY-MM-DD)"),
+});
+
+const salesAggregationSchema = joi.object({
+  startDate: joi.date().required().description("Start date (YYYY-MM-DD)"),
+  endDate: joi.date().required().description("End date (YYYY-MM-DD)"),
   groupBy: joi
     .string()
     .valid("user", "group")
@@ -21,5 +26,6 @@ const salesSchema = joi.object({
 });
 
 module.exports = {
-  schema: salesSchema,
+  salesSchema,
+  salesAggregationSchema,
 };
